@@ -79,9 +79,33 @@ module "ec2" {
   source                     = ""
   security_group_name        = "my-security-group"
   security_group_description = "My security group"
-  vpc_id                     = module.vpc.vpc_id
-  inbound_rules              = var.inbound_rules
-  outbound_rules             = var.outbound_rules
+  vpc_id                     = vpc-0a1b2c3d4e5f6g7h8
+  inbound_rules = [
+    {
+      description = "Allow SSH"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      description = "Allow HTTP"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+  
+  outbound_rules = [
+    {
+      description = ""
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
   ami_id                     = [""ami-0abcdef1234567890"", "ami-0abcdef1234567891"]
   instance_type              = ["t2.micro", "t2.micro"]
   subnet_id                  = ["subnet-0a1b2c3d4e5f67890", "subnet-0a1b2c3d4e5f67891"]

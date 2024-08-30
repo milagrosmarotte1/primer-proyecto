@@ -39,6 +39,7 @@ variable "inbound_rules" {
     from_port   = number
     to_port     = number
     protocol    = string
+    cidr_blocks = list(string)
   }))
 }
 
@@ -49,6 +50,7 @@ variable "outbound_rules" {
     from_port   = number
     to_port     = number
     protocol    = string
+    cidr_blocks = list(string)
   }))
 }
 

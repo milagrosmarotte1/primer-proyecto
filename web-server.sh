@@ -1,14 +1,18 @@
 #!/bin/bash
 
-# Actualiza el sistema
-sudo apt-get update -y
+# UPDATE PACKAGE MANAGER
+apt update --fix-missing
 
-# Instala Nginx
-sudo apt-get install -y nginx
+# INSTALL, START and ENABLE NGINX
+apt install -y nginx
+systemctl start nginx
+systemctl enable nginx
 
-# Crea una página HTML básica
-echo '<!doctype html><html><head><title>My Web Server</title></head><body><h1>Hello, World!</h1></body></html>' | sudo tee /var/www/html/index.html
+# CHANGE FILE PERMISSION TO PERMIT MODIFICATION OF DEFAULT WEB FILE
+chmod 0777 /var/www/html/index.nginx-debian.html
 
-# Inicia y habilita el servicio Nginx
-sudo systemctl start nginx
-sudo systemctl enable nginx
+# MODIFY DEFAULT WEB DOCUMENT
+echo "<html><h1>Hello from your web server!</h1></html>" > /var/www/html/index.nginx-debian.html
+
+# RESTART NGINX
+systemctl start nginx
